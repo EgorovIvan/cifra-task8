@@ -1,0 +1,74 @@
+.search-input {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 20rem;
+  height: 3rem;
+  margin: 0 auto;
+  border-radius: 0.125rem;
+  padding: 0 1rem;
+  background: $input-background;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    height: 0.125rem;
+    border-bottom-left-radius: 0.125rem;
+    border-bottom-right-radius: 0.125rem;
+    background-position: 0% 0%;
+    background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+    background-size: 500% auto;
+    animation: gradient 3s linear infinite;
+  }
+
+  input {
+    flex-grow: 1;
+    color: $input-text-active;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    border-style: none;
+    background: transparent;
+    outline: none;
+
+    &::-webkit-input-placeholder {
+      color: $input-text-inactive;
+    }
+  }
+
+  button {
+    width: 2rem;
+    height: 2rem;
+    background: url('../assets/search.svg') no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.15);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+
+// gradient animation
+@keyframes gradient {
+  0% {
+    background-position: 0 0
+  }
+  100% {
+    background-position: 100% 0
+  }
+}
