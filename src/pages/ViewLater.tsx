@@ -7,13 +7,33 @@ import {Checkbox} from "./AnimeList.tsx";
 import {useEffect, useState} from "react";
 import Pagination from "../components/Pagination.tsx";
 
+export const SCREEN_MD = 768;
 const ViewLater: React.FC = () => {
 
-    const { videoList, removeFromVideoList, sortByRating, sortByDate, currentPage, totalPages, setCurrentPage} = useVideoStore();
+    const { videoList, removeFromVideoList, sortByRating, sortByDate, currentPage,
+        totalPages, setCurrentPage, numberItemOnPage, setNumberItemOnPage} = useVideoStore();
     const sortCheckbox: Checkbox[] = [
         {id: 1, name: 'по рейтингу'},
         {id: 2, name: "по дате"}
     ];
+
+    useEffect(() => {
+
+        const handleResize = (event) => {
+            if(event.target.innerWidth < SCREEN_MD) {
+                setNumberItemOnPage(3)
+
+            } else {
+                setNumberItemOnPage(7)
+                setCurrentPage(1)
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
 
     // Состояния для хранения выделенных чекбоксов
     const [selectedSortCheckboxes, setSelectedSortCheckboxes] = useState<string[]>([]);
@@ -61,7 +81,7 @@ const ViewLater: React.FC = () => {
                         />
                     </div>
 
-                {videoList.slice((currentPage - 1)*7, (currentPage - 1)*7 + 7).map((videoItem) => (
+                {videoList.slice((currentPage - 1)*numberItemOnPage, (currentPage - 1)*numberItemOnPage + numberItemOnPage).map((videoItem) => (
                     <div  key={videoItem.id} className="video-later__item">
                         <YouTube
                             videoId={videoItem.video_id}

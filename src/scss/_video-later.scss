@@ -11,6 +11,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__list-sort {
@@ -23,6 +31,10 @@
     padding: 2rem;
     border-radius: 0.625rem;
     background: linear-gradient(45deg, #d299c2, #fef9d7);
+
+    @media (max-width: 768px) {
+      margin: 0;
+    }
   }
 
   &__item {

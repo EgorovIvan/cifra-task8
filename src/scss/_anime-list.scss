@@ -2,8 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 1.25rem 0;
 
+  @media (max-width: 768px) {
+    padding: 0.25rem 0;
+  }
 
   .search-wrapper {
     position: relative;
@@ -14,6 +17,15 @@
     width: 100%;
     margin: 0 0 3rem;
     padding: 0 0.75rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+
+      margin: 0 0 3rem;
+      padding: 0 0.75rem;
+    }
   }
 
   .anime-list {
@@ -27,7 +39,8 @@
       grid-template-columns: 1fr 1fr;
     }
 
-    @media (max-width: 750px) {
+    @media (max-width: 768px) {
+      max-width: 20rem;
       grid-template-columns: 1fr;
     }
 
@@ -39,6 +52,17 @@
       padding: 2rem;
       border-radius: 0.625rem;
       background: linear-gradient(45deg, #d299c2, #fef9d7);
+
+      @media (max-width: 1100px) {
+        padding: 1.5rem;
+        margin: 0 2rem 0 0;
+      }
+
+      @media (max-width: 768px) {
+        max-width: 15.5rem;
+        margin: 0;
+        padding: 0.25rem;
+      }
     }
 
     &__filter-title {
@@ -51,13 +75,19 @@
       align-items: center;
       justify-content: center;
       gap: 2rem;
+
+      @media (max-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
     }
   }
 
   .anime-card {
 
     a {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr;
       align-items: start;
       justify-content: start;
       gap: 1.25rem;
@@ -71,11 +101,12 @@
       cursor: pointer;
 
       @media (max-width: 1100px) {
-        grid-template-columns: 1fr 1fr;
+        height: 23.25rem;
       }
 
-      @media (max-width: 750px) {
+      @media (max-width: 768px) {
         grid-template-columns: 1fr;
+        height: auto;
       }
     }
 
@@ -94,9 +125,10 @@
         max-height: 22rem;
       }
 
-      @media (max-width: 750px) {
-        max-width: 8rem;
-        max-height: 12rem;
+      @media (max-width: 768px) {
+        justify-self: center;
+        max-width: 100%;
+        max-height: 19rem;
       }
     }
 
@@ -108,6 +140,10 @@
       justify-content: start;
       align-self: start;
       height: 100%;
+
+      @media (max-width: 768px) {
+        margin-bottom: 4rem;
+      }
     }
 
     &__info-title {
@@ -141,6 +177,10 @@
       border: none;
       cursor: pointer;
 
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
     }
 
     &__info-btn:hover {

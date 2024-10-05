@@ -283,9 +283,8 @@ const AnimeList: React.FC = () => {
                     </div>
 
                 </div>
-                {!props.animeList ?
-                    <ReactLoading className={"anime-item__loader"} type={"spinningBubbles"} color={"#696969"} height={'10%'}
-                                  width={'10%'}/> :
+
+                {
                 props.animeList.map((anime) => (
 
                     <div key={anime.mal_id} className="anime-card">
@@ -304,7 +303,7 @@ const AnimeList: React.FC = () => {
                                 <p>кол-во оценок: {anime.scored_by ? anime.scored_by : 0}</p>
                                 <p>кол-во favorites: {anime.favorites ? anime.favorites : 0}</p>
                                 <p>кол-во эпизодов: {anime.episodes ? anime.episodes : 0}</p>
-                                {/*<p>тип: {anime.type}</p>*/}
+                                <p>тип: {anime.type}</p>
                                 {/*<p>рейтинг: {anime.rating}</p>*/}
                                 {/*<p>статус: {anime.status}</p>*/}
                                 {/*<p>*/}

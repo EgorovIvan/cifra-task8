@@ -83,6 +83,7 @@ export interface AnimeState {
     fetchAnimeItem: (id: string | undefined) => Promise<void>;
 }
 
+// @ts-ignore
 export const useAnimeStore = create<AnimeState>((set, get) => ({
     searchBy: '',
     orderBy: '',

@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware'
+import {persist, createJSONStorage} from 'zustand/middleware'
 import axios from "axios";
 
 interface Video {
@@ -12,11 +12,19 @@ interface Video {
 }
 
 interface VideoState {
-    currentPage: number;
-    totalPages: number;
-    setCurrentPage: (page: number) => void;
+
     videoItem: Video;
     videoList: Video[];
+
+    currentPage: number;
+    totalPages: number;
+
+    numberItemOnPage: number;
+
+    setCurrentPage: (page: number) => void;
+
+    setNumberItemOnPage: (count: number) => void;
+
     setRatingVideo: (rating: number) => void;
     clearVideoItem: () => void;
     addToVideoList: () => void;
@@ -26,17 +34,27 @@ interface VideoState {
     sortByDate: () => void;
 }
 
+// @ts-ignore
 export const useVideoStore = create<VideoState>(
     persist(
         (set) => ({
+
             videoItem: '',
             videoList: [],
 
             currentPage: 1,
             totalPages: 1,
 
+            numberItemOnPage: 7,
+
             // Установить текущую страницу
             setCurrentPage: (page: number) => set({currentPage: page}),
+            setNumberItemOnPage: (count: number) => {
+                set({numberItemOnPage: count});
+                set((state) => ({
+                    totalPages: Math.ceil(state.videoList.length / state.numberItemOnPage)
+                }));
+            },
 
             // API запрос на видео
             fetchVideoItem: async (id: string, title: string) => {
@@ -55,7 +73,6 @@ export const useVideoStore = create<VideoState>(
                         }
                     })
 
-                    // console.log(new Date())
                 } catch (error) {
                     console.error('Error fetching videoList:', error)
                 }
@@ -83,7 +100,7 @@ export const useVideoStore = create<VideoState>(
                         videoList: [...state.videoList, state.videoItem],
                     }));
                     set((state) => ({
-                        totalPages: Math.ceil(state.videoList.length / 7)
+                        totalPages: Math.ceil(state.videoList.length / state.numberItemOnPage)
                     }));
                 } catch (error) {
                     console.error('Error add videoItem:', error)
@@ -97,7 +114,7 @@ export const useVideoStore = create<VideoState>(
                         videoList: state.videoList.filter(item => item.id !== video_id)
                     }));
                     set((state) => ({
-                        totalPages: Math.ceil(state.videoList.length / 7)
+                        totalPages: Math.ceil(state.videoList.length / state.numberItemOnPage)
                     }));
                 } catch (error) {
                     console.error('Error remove videoItem:', error)
