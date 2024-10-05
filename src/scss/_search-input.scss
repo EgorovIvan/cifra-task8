@@ -6,7 +6,6 @@
   justify-content: space-between;
   width: 20rem;
   height: 3rem;
-  margin: 0 auto;
   border-radius: 0.125rem;
   padding: 0 1rem;
   background: $input-background;
@@ -51,6 +50,7 @@
     cursor: pointer;
     transition: transform 0.3s ease;
 
+
     &:hover,
     &:focus-visible {
       transform: scale(1.15);
@@ -62,8 +62,6 @@
   }
 }
 
-
-// gradient animation
 @keyframes gradient {
   0% {
     background-position: 0 0
@@ -72,3 +70,4 @@
     background-position: 100% 0
   }
 }
+

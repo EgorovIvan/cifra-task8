@@ -48,6 +48,9 @@ interface Anime {
 
 export interface AnimeState {
     currentPage: number;
+    totalPages: number;
+    setCurrentPage: (page: number) => void;
+
     searchBy: string;
     orderBy: string;
     sortBy: string;
@@ -61,7 +64,6 @@ export interface AnimeState {
     filterByGenresExclude: InternalObject[];
     filterByProducers: string;
 
-    updateCurrentPage: (page: string) => void;
     updateSearchBy: (name: string) => void;
     updateOrderBy: (name: string) => void;
     updateSortBy: (direction: string) => void;
@@ -82,7 +84,6 @@ export interface AnimeState {
 }
 
 export const useAnimeStore = create<AnimeState>((set, get) => ({
-    currentPage: 1,
     searchBy: '',
     orderBy: '',
     sortBy: '',
@@ -99,10 +100,21 @@ export const useAnimeStore = create<AnimeState>((set, get) => ({
     animeItem: '',
     animeList: [],
 
-    updateCurrentPage: (newPage) => set({ currentPage: newPage }),
+    currentPage: 1,
+    totalPages: 1,
+
+    // Установить текущую страницу
+    setCurrentPage: (page: number) => set({ currentPage: page }),
+
+    // Обновить результаты поиска
     updateSearchBy: (name) => set({ searchBy: name }),
+
+    // Обновить результаты сортировки
     updateOrderBy: (name) => set({ orderBy: name }),
+
+    // Обновить результаты сортировки (asc, desc)
     updateSortBy: (direction) => set({ sortBy: direction }),
+
 
     updateFilterByType: (type) => set({ filterByType: type }),
     updateFilterByRating: (rating) => set({ filterByRating: rating }),
@@ -113,7 +125,8 @@ export const useAnimeStore = create<AnimeState>((set, get) => ({
     updateFilterByGenresExclude: (genres) => set({ filterByGenresExclude: genres }),
     updateFilterByProducers: (producers) => set({ filterByProducers: producers }),
 
-    fetchAnimeList: async () => {
+    // API запрос на список аниме
+    fetchAnimeList: async (): Promise<void> => {
 
         const params = {
             page: get().currentPage,
@@ -134,7 +147,7 @@ export const useAnimeStore = create<AnimeState>((set, get) => ({
 
             const response = await axios.get('https://api.jikan.moe/v4/anime', {params})
 
-            let result:any[] = []
+            let result: any[] = []
 
             if(params.order_by === "start_date" || params.order_by === "end_date") {
                 result = response.data.data.reduce( (result, letter) => {
@@ -144,16 +157,19 @@ export const useAnimeStore = create<AnimeState>((set, get) => ({
                 result = response.data.data
             }
 
+            const resultTotalPages: number = response.data.pagination.items.count
+
             set({result, animeList: result})
-            console.log(result)
-            console.log(params)
+            set({resultTotalPages, totalPages: resultTotalPages})
+            // console.log(result)
 
         } catch (error) {
             console.error('Error fetching animeList:', error)
         }
     },
 
-    fetchAnimeItem: async (id: string) => {
+    // API запрос на видео
+    fetchAnimeItem: async (id: string): Promise<void>  => {
         try {
             const response = await axios.get(`https://api.jikan.moe/v4/anime/${id}/full`)
             const result = response.data.data

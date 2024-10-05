@@ -21,43 +21,46 @@ const DateRangePicker: React.FC = () => {
     // Валидация диапазона дат
     const isValidDateRange = startDate && endDate && startDate <= endDate;
 
-
-    useEffect(() => {
-        fetchAnimeList()
-    }, [filterByStartDate, filterByEndDate]);
-
     return (
-        <div>
-            <h2>Select Date Range</h2>
-            <div>
-                <label htmlFor="startDate">Start Date:</label>
+        <div className={'picker'}>
+            <h4 className={'picker__title'}>периоду</h4>
+            <div className={'picker__item'}>
+                <label
+                    htmlFor="startDate"
+                    className={'picker__name'}
+                >Start Date:</label>
                 <input
                     type="date"
                     id="startDate"
+                    className={'picker__input'}
                     value={filterByStartDate}
                     onChange={handleStartDateChange}
                 />
             </div>
 
-            <div>
-                <label htmlFor="endDate">End Date:</label>
+            <div className={'picker__item'}>
+                <label
+                    htmlFor="endDate"
+                    className={'picker__name'}
+                >End Date:</label>
                 <input
                     type="date"
                     id="endDate"
+                    className={'picker__input'}
                     value={filterByEndDate}
                     onChange={handleEndDateChange}
                 />
             </div>
 
-            <div>
-                {isValidDateRange ? (
-                    <p>
-                        Selected range: {filterByStartDate} to {filterByEndDate}
-                    </p>
-                ) : (
-                    <p style={{ color: 'red' }}>Invalid date range</p>
-                )}
-            </div>
+            {/*<div>*/}
+            {/*    {isValidDateRange ? (*/}
+            {/*        <p>*/}
+            {/*            Selected range: {filterByStartDate} to {filterByEndDate}*/}
+            {/*        </p>*/}
+            {/*    ) : (*/}
+            {/*        <p style={{ color: 'red' }}>Invalid date range</p>*/}
+            {/*    )}*/}
+            {/*</div>*/}
         </div>
     );
 };

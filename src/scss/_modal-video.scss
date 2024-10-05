@@ -1,0 +1,39 @@
+.modal-video {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0.625rem;
+  background: $bg-gray-900;
+  z-index: 10;
+  transition: opacity 2s;
+
+  &__form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    width: 38rem;
+    height: 28rem;
+    padding: 2rem 6rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(45deg, #a7a6cb, #8989ba);
+  }
+
+  &__form-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url(../assets/close.svg) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+}

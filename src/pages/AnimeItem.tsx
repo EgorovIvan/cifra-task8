@@ -2,9 +2,9 @@ import * as React from "react";
 import {useParams} from "react-router-dom";
 import {AnimeState, useAnimeStore} from "../store/useAnimeStore.ts";
 import {useEffect} from "react";
-import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import ReactLoading from 'react-loading';
+import YouTube from "react-youtube";
 
 const AnimeItem: React.FC = () => {
     const {animeItem, fetchAnimeItem}: AnimeState = useAnimeStore();
@@ -14,7 +14,6 @@ const AnimeItem: React.FC = () => {
         fetchAnimeItem(id)
     }, []);
 
-    console.log(animeItem)
     return (
         <div className="anime-item">
 
@@ -27,19 +26,16 @@ const AnimeItem: React.FC = () => {
 
                         {
                             animeItem.trailer.youtube_id ?
-                                <LiteYouTubeEmbed
-                                    id={animeItem.trailer.youtube_id}
-                                    playlistCoverId={animeItem.trailer.youtube_id}
-                                    wrapperClass="anime-item__main-wrapper"
-                                    iframeClass="anime-item__main-iframe"
+                                <YouTube
+                                    videoId={animeItem.trailer.youtube_id}
+                                    className={'anime-item__main-wrapper'}
+                                    iframeClassName={'anime-item__main-iframe'}
                                     title={animeItem.title}
-                                    aspectWidth={16}
-                                    aspectHeight={9}
                                 /> : ''
                         }
 
                         <button className="anime-item__main-btn">
-                            Добавить в избранное
+                            Добавить видео в ПП
                         </button>
                     </div>
                     <div className="anime-item__content">

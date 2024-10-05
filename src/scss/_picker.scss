@@ -1,0 +1,57 @@
+.picker {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  &__name {
+    display: flex;
+    width: 6rem;
+    color: $text-black-200;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: left;
+
+    @media (max-width: 1100px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 0.625rem;
+    }
+  }
+
+  &__input {
+    width: 12rem;
+    padding: 0.25rem 1rem;
+    color: $text-black-200;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: left;
+    border-radius: 0.25rem;
+    border: none;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+    @media (max-width: 1100px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 0.625rem;
+    }
+  }
+
+  &__input:hover {
+    border: none;
+  }
+}
